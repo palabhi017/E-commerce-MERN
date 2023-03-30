@@ -33,7 +33,7 @@ productRouter.post("/add",async(req,res)=>{
         }
     const products = await productModel.find(q).sort(s)
     
-    res.status(200).json({"products":products})
+    res.status(200).send(products)
     
     
     } catch (error) {
