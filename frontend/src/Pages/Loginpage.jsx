@@ -1,72 +1,66 @@
-import React, { useState } from "react";
-
+import { Box, Button, Heading, Input, SimpleGrid } from "@chakra-ui/react";
+import React from "react";
 const Loginpage = () => {
   return (
-    <div>
-      <div>
-        <h1>Log In</h1>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
+    <Box>
+      <Box marginBottom={"30px"}>
+        <Heading
+          fontWeight="400"
+          fontSize="2rem"
+          lineHeight="1.8rem"
+          marginBottom={"20px"}
         >
-          <button
+          Log In
+        </Heading>
+        <Box display="flex" justifyContent="center">
+          <Button
             type="link"
             style={{
               border: "none",
               cursor: "pointer",
               backgroundColor: "white",
               fontSize: "15px",
-              marginTop: "2px",
             }}
           >
             Home{" "}
-          </button>
-          <p style={{ fontSize: "15px" }}>
+          </Button>
+          <p style={{ fontSize: "15px", marginTop: "9px" }}>
             <span>&#62;</span> Account
           </p>
-        </div>{" "}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          width: "50%",
-          margin: "auto",
-          gap: "40px",
-        }}
+        </Box>{" "}
+      </Box>
+      <SimpleGrid
+        columns={{ base: "2", sm: "1", xl: "2" }}
+        width="50%"
+        margin="auto"
+        gap="40px"
       >
-        <div style={{ textAlign: "left", padding: "10px" }}>
-          <h4
-            style={{
-              fontWeight: "500",
-              fontSize: "1.4rem",
-              lineHeight: "1.8rem",
-            }}
+        <Box style={{ textAlign: "left", padding: "10px" }}>
+          <Heading
+            fontWeight="500"
+            fontSize="1.4rem"
+            lineHeight="1.8rem"
+            marginBottom={"10px"}
           >
             Log In
-          </h4>
-          <input
-            style={{
-              borderRadius: ".25rem",
-              borderWidth: "1px",
-              lineHeight: "1.8rem",
-              padding: ".375rem .75rem",
-              width: "90%",
-              marginBottom: "20px",
-            }}
+          </Heading>
+          <Input
+            borderRadius=".25rem"
+            borderWidth="1px"
+            lineHeight="1.8rem"
+            padding=".375rem .75rem"
+            width="100%"
+            marginBottom="20px"
             type={"email"}
             placeholder="Email"
           />
-          <input
-            style={{
-              borderRadius: ".25rem",
-              borderWidth: "1px",
-              lineHeight: "1.8rem",
-              padding: ".375rem .75rem",
-              width: "90%",
-              marginBottom: "20px",
-            }}
+          <Input
+            borderRadius=".25rem"
+            borderWidth="1px"
+            lineHeight="1.8rem"
+            padding=".380rem .75rem"
+            width="100%"
+            marginBottom="20px"
             type={"password"}
             placeholder="Password"
           />
@@ -76,7 +70,7 @@ const Loginpage = () => {
           >
             Forgot your password?
           </a>
-          <button
+          <Button
             style={{
               backgroundColor: "black",
               marginTop: "15px",
@@ -90,8 +84,8 @@ const Loginpage = () => {
             }}
           >
             Sign In
-          </button>
-          <button
+          </Button>
+          <Button
             style={{
               backgroundColor: "#4267B2",
               color: "white",
@@ -104,8 +98,8 @@ const Loginpage = () => {
             }}
           >
             Sign in with Facebook
-          </button>
-          <button
+          </Button>
+          <Button
             style={{
               backgroundColor: "#DB4437",
               color: "white",
@@ -117,18 +111,19 @@ const Loginpage = () => {
             }}
           >
             Sign in with Google
-          </button>
-        </div>
-        <div style={{ textAlign: "left", padding: "10px" }}>
-          <h4
+          </Button>
+        </Box>
+        <Box style={{ textAlign: "left", padding: "10px" }}>
+          <Heading
             style={{
               fontWeight: "500",
               fontSize: "1.4rem",
               lineHeight: "1.8rem",
+              marginBottom: "10px",
             }}
           >
             New Customer
-          </h4>
+          </Heading>
           <p
             style={{
               marginBottom: "1.5rem",
@@ -140,7 +135,7 @@ const Loginpage = () => {
             Sign up for early Sale access plus tailored new arrivals, trends and
             promotions. To opt out, click unsubscribe in our emails.
           </p>
-          <button
+          <Button
             style={{
               backgroundColor: "black",
               color: "white",
@@ -150,10 +145,10 @@ const Loginpage = () => {
             }}
           >
             Register
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </SimpleGrid>
+    </Box>
   );
 };
 
