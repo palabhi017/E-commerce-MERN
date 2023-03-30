@@ -25,6 +25,9 @@ productRouter.post("/add",async(req,res)=>{
         if(req.query.brand){
             q.brand= req.query.brand
         }
+        if(req.query.gender){
+            q.gender= req.query.gender
+        }
         if(req.query.category){
             q.category = req.query.category
         }

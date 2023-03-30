@@ -7,45 +7,42 @@ import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 // import { getProducts } from "../Redux/Products/product.action";
 import CheckBoxes from "./CheckBoxes";
+import { BRAND, CATEGORY } from "../Redux/Products/product.type";
 
 const Filter = ({ handlesort }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const dispatch = useDispatch()
   const protype = useSelector((state) => state.productReducer.protypes);
+  const category = useSelector((state) => state.productReducer.category);
+  const brand = useSelector((state) => state.productReducer.brand);
   // const initialFilterValues = searchParams.getAll("filter");
  
-  const [filterValues, setFilterValues] = useState([]);
-  const [filterValues1, setFilterValues1] = useState([]);
-  let arr1 = ["saree", "Kurtis", "Dupattas", "Blouse", "Patticoats", "Pants"];
-  let arr2 = [
-    "topwear",
-    "bottomwear",
-    "menaccessories",
-    "menfootwear",
-    "Kurtas",
-  ];
+  const [filterValues, setFilterValues] = useState(category||[]);
+  const [filterValues1, setFilterValues1] = useState(brand||[]);
+  let arr1 = ["saree", "kurtis", "dupatta", "palazzos"];
+  let arr2 = ["banarasi","devastri","pisara","saara","satyam"];
+  let arr3 = ["blazer","kurtas","shirt","T-shirt"]
+  let arr4 = ["puma","levis","nike","adidas","gucci"]
   
-  // const dispatch = useDispatch();
 
   const handleFilterChange = (value) => {
     setFilterValues(value);
-    console.log(filterValues)
+    dispatch({type:CATEGORY,payload:value})
   };
   const handleFilterChange1 = (value) => {
     setFilterValues1(value);
-    console.log(filterValues1)
-
-  };
+    dispatch({type:BRAND,payload:value})
+};
 
   
-  useEffect(() => {
-    let params = {};
+  // useEffect(() => {
+  //   let params = {};
 
     
-    if (filterValues) params.filter = filterValues;
+  //   if (filterValues) params.filter = filterValues;
 
-    setSearchParams(params);
-  }, [filterValues]);
+  //   setSearchParams(params);
+  // }, [filterValues]);
   return (
     <>
      
@@ -75,7 +72,7 @@ const Filter = ({ handlesort }) => {
               arr1.map((e) => <CheckBoxes key={e} data={e} />)}
             {protype &&
               protype === "men" &&
-              arr2.map((e) => <CheckBoxes key={e}  data={e} />)}
+              arr3.map((e) => <CheckBoxes key={e}  data={e} />)}
             
           </Stack>
         </CheckboxGroup>
@@ -95,10 +92,10 @@ const Filter = ({ handlesort }) => {
           >
             {protype &&
               protype === "women" &&
-              arr1.map((e) => <CheckBoxes key={e} data={e} />)}
+              arr2.map((e) => <CheckBoxes key={e} data={e} />)}
             {protype &&
               protype === "men" &&
-              arr2.map((e) => <CheckBoxes key={e}  data={e} />)}
+              arr4.map((e) => <CheckBoxes key={e}  data={e} />)}
             
           </Stack>
         </CheckboxGroup>
