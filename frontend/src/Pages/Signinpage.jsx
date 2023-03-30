@@ -1,41 +1,38 @@
+import { Box, Button, Heading } from "@chakra-ui/react";
 import React from "react";
 
 const Signinpage = () => {
   return (
-    <div>
-      <div>
-        <h1
+    <Box>
+      <Box>
+        <Heading
           style={{
-            fontWeight: "500",
+            fontWeight: "400",
             fontSize: "2rem",
             lineHeight: "1.8rem",
+            marginBottom: "20px",
           }}
         >
           Register
-        </h1>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <button
+        </Heading>
+        <Box display="flex" justifyContent="center">
+          <Button
             type="link"
             style={{
               border: "none",
               cursor: "pointer",
               backgroundColor: "white",
-              fontSize: "15px", marginTop:"2px"
+              fontSize: "15px",
             }}
           >
             Home{" "}
-          </button>
-          <p style={{ fontSize: "15px" }}>
+          </Button>
+          <p style={{ fontSize: "15px", marginTop: "9px" }}>
             <span>&#62;</span> Account
           </p>
-        </div>
-      </div>
-      <div
+        </Box>{" "}
+      </Box>
+      <Box
         style={{
           padding: "10px",
           textAlign: "left",
@@ -43,15 +40,16 @@ const Signinpage = () => {
           margin: "auto",
         }}
       >
-        <h4
+        <Heading
           style={{
             fontWeight: "500",
             fontSize: "1.4rem",
             lineHeight: "1.8rem",
+            marginBottom: "10px",
           }}
         >
           Register
-        </h4>
+        </Heading>
         <input
           style={{
             borderRadius: ".25rem",
@@ -104,7 +102,7 @@ const Signinpage = () => {
           type="password"
           placeholder="Password"
         />
-        <p style={{ fontSize: "13px", color: "grey" }}>
+        <p style={{ fontSize: "13px", color: "grey", marginBottom: "10px" }}>
           Sign up for early Sale access plus tailored new arrivals, trends and
           promotions. To opt out, click unsubscribe in our emails.
         </p>
@@ -159,8 +157,8 @@ const Signinpage = () => {
         >
           Sign in with Google
         </button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
