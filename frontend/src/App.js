@@ -7,9 +7,11 @@ import Allroutes from './Pages/Allroutes';
 function App() {
   return (
     <div className="App">
+
       <Navbar/>
      <Allroutes/>
      <Footer/>
+
     </div>
   );
 }
