@@ -25,7 +25,7 @@ import {
     DrawerOverlay,
     Flex
   } from "@chakra-ui/react";
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate } from "react-router-dom";
   import "./Navbar.css"
   import { ChevronRightIcon} from "@chakra-ui/icons";
   import { AiOutlineStar} from "react-icons/ai";
@@ -37,10 +37,35 @@ import {
   import { SlMagnifier } from "react-icons/sl";
   import { BsPerson } from "react-icons/bs";
   import { BiShoppingBag } from "react-icons/bi";
+import { useDispatch } from 'react-redux';
+import { protypes } from '../Redux/Products/product.action';
+import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
 
   const Navbar = ()=>{
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+
+    const handleCate = (gender) => {
+      const getProductsParam = {
+        params: {
+          gender: gender
+        },
+      };
+      
+      dispatch(protypes(gender));
+     
+   localStorage.setItem("cate", JSON.stringify(getProductsParam))
+      
+      dispatch({type:PRODUCTS_PAGE,payload:1})
+      dispatch({type:CATEGORY,payload:[]})
+    dispatch({type:BRAND,payload:[]})
+
+      navigate("/product")
+    };
+
     return (
         <div>
             <Box className="first-header">
@@ -103,7 +128,7 @@ import {
           id="hover-black"
         >
           <div id="menu-dropdown" className='containerh'>
-            <div id="menu-title" className='icon' >Men <BiChevronDown/></div>
+            <div id="menu-title" className='icon' onClick={()=> handleCate("men")}>Men <BiChevronDown/></div>
             <div className="popup">
                     <div className="contpop">
                         <div className="firstpop">
@@ -151,7 +176,7 @@ import {
             </div>
           </div>
           <div id="menu-dropdown" className='containerh'>
-            <div id="menu-title" className='icon'>Women<BiChevronDown/></div>
+            <div id="menu-title" className='icon' onClick={()=> handleCate("women")}>Women<BiChevronDown/></div>
               <div className="popup">
                     <div className="contpop">
                         <div className="firstpop">
