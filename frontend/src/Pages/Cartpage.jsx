@@ -16,7 +16,7 @@ import { BsPencil } from "react-icons/bs";
 import { TbBus } from "react-icons/tb";
 import { RiCouponLine } from "react-icons/ri";
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const dummy = [
   {
     img: "https://cdn.shopify.com/s/files/1/0677/1464/6315/products/CataloguetemplateKOOVS_1_-06_a88e071b-7938-4eda-8d07-8e61c01e0d57.jpg?v=1680003786&width=360",
@@ -39,8 +39,12 @@ const dummy = [
 ];
 const Cartpage = () => {
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/payment");
+  };
   return (
-    <Box w="100%">
+    <Box w="100%" mt="40px" mb="40px">
       <Heading
         fontWeight="400"
         fontSize="2rem"
@@ -148,15 +152,14 @@ const Cartpage = () => {
             </Tbody>
           </Table>
         </TableContainer>
-        <Box position={"relative"}>
+        <Box w="20%" position={"relative"} right="40" float={"right"} mt="20px">
           <Box
-            w="20%"
-            p="0px 10px"
+            p="10px 0px"
+            pb="20px"
+            borderBottom={"1px solid grey"}
             display={"flex"}
-            justifyContent="space-evenly"
+            justifyContent="space-between"
             position={"relative"}
-            right="40"
-            float={"right"}
           >
             <Box
               w="30%"
@@ -164,11 +167,13 @@ const Cartpage = () => {
               flexDirection="column"
               justifyContent={"center"}
               alignItems="center"
+              borderRight={"1px solid grey"}
             >
               <BsPencil size="20px" />
               <Text>Note</Text>
             </Box>
             <Box
+              borderRight={"1px solid grey"}
               w="30%"
               display={"flex"}
               flexDirection="column"
@@ -189,24 +194,48 @@ const Cartpage = () => {
               <Text>Coupon</Text>
             </Box>
           </Box>
-          <br/>
-          <Box
-            w="20%"
-            p="0px 10px"
-            display={"flex"}
-            justifyContent="space-evenly"
-            position={"relative"}
-            right="40"
-            float={"right"}
-          >
-            <Box display={"flex"}>
+          <Box position={"relative"} mt="20px" mb="25px">
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              w="100%"
+              mt="10px"
+              fontSize={"15px"}
+            >
               <Text>Shipping: </Text>
               <Text>FREE</Text>
             </Box>
-            <Box>
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              w="100%"
+              mt="10px"
+              fontSize={"15px"}
+            >
               <Text>Subtotal</Text>
               <Text>Rs. 1290</Text>
             </Box>
+          </Box>
+          <Box>
+            <Button
+              onClick={handleClick}
+              color={"white"}
+              backgroundColor={"black"}
+              w="100%"
+              colorScheme="black"
+              gap="8px"
+            >
+              <Box>
+                <Text color="white">Place Order</Text>
+                <Text color="white" fontSize={"10px"}>
+                  5% Extra off on UPI
+                </Text>
+              </Box>
+              <Image src="https://cdn.gokwik.co/v4/images/upi-icons.svg" />
+              <Box color="white" fontSize={"20px"}>
+                <span>&#62;</span>
+              </Box>
+            </Button>
           </Box>
         </Box>
       </Box>
@@ -294,6 +323,91 @@ const Cartpage = () => {
             </Tbody>
           </Table>
         </TableContainer>
+        <Box w="90%" m="auto" position={"relative"} mt="40px">
+          <Box
+            p="10px 0px"
+            pb="20px"
+            borderBottom={"1px solid grey"}
+            display={"flex"}
+            justifyContent="space-between"
+            position={"relative"}
+          >
+            <Box
+              w="30%"
+              display={"flex"}
+              flexDirection="column"
+              justifyContent={"center"}
+              alignItems="center"
+              borderRight={"1px solid grey"}
+            >
+              <BsPencil size="20px" />
+              <Text>Note</Text>
+            </Box>
+            <Box
+              borderRight={"1px solid grey"}
+              w="30%"
+              display={"flex"}
+              flexDirection="column"
+              justifyContent={"center"}
+              alignItems="center"
+            >
+              <TbBus size="20px" />
+              <Text>Shipping</Text>
+            </Box>
+            <Box
+              w="30%"
+              display={"flex"}
+              flexDirection="column"
+              justifyContent={"center"}
+              alignItems="center"
+            >
+              <RiCouponLine size="20px" />
+              <Text>Coupon</Text>
+            </Box>
+          </Box>
+          <Box position={"relative"} mt="20px" mb="25px">
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              w="100%"
+              mt="10px"
+              fontSize={"15px"}
+            >
+              <Text>Shipping: </Text>
+              <Text>FREE</Text>
+            </Box>
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              w="100%"
+              mt="10px"
+              fontSize={"15px"}
+            >
+              <Text>Subtotal</Text>
+              <Text>Rs. 1290</Text>
+            </Box>
+          </Box>
+          <Box>
+            <Button
+              color={"white"}
+              backgroundColor={"black"}
+              w="100%"
+              colorScheme="black"
+              gap="8px"
+            >
+              <Box>
+                <Text color="white">Place Order</Text>
+                <Text color="white" fontSize={"10px"}>
+                  5% Extra off on UPI
+                </Text>
+              </Box>
+              <Image src="https://cdn.gokwik.co/v4/images/upi-icons.svg" />
+              <Box color="white" fontSize={"20px"}>
+                <span>&#62;</span>
+              </Box>
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
