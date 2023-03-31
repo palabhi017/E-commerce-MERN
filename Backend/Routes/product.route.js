@@ -25,6 +25,9 @@ productRouter.post("/add",async(req,res)=>{
         if(req.query.brand){
             q.brand= req.query.brand
         }
+        if(req.query.gender){
+            q.gender= req.query.gender
+        }
         if(req.query.category){
             q.category = req.query.category
         }
@@ -33,7 +36,7 @@ productRouter.post("/add",async(req,res)=>{
         }
     const products = await productModel.find(q).sort(s)
     
-    res.status(200).json({"products":products})
+    res.status(200).send(products)
     
     
     } catch (error) {

@@ -1,14 +1,19 @@
-import React from 'react'
-import {Routes,Route} from "react-router-dom"
-import Productpage from './Productpage'
-import Singleproductpage from './Singleproductpage'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import AdminPanel from "./AdminPanel";
+import EditRecord from "./EditRecord";
+import Productpage from "./Productpage";
+import Singleproductpage from "./Singleproductpage";
 const Allroutes = () => {
   return (
     <Routes>
-          <Route path="/product" element={<Productpage/>}/>
-          <Route path="/product/:id" element={<Singleproductpage/>} />
-    </Routes>
-  )
-}
+      <Route path="/product" element={<Productpage />} />
+      <Route path="/product/:id" element={<Singleproductpage/>}/>
+      <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/admin/edit" element={<EditRecord />} />
 
-export default Allroutes
+    </Routes>
+  );
+};
+
+export default Allroutes;
