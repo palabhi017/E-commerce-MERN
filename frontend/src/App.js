@@ -5,7 +5,8 @@ import Loginpage from "./Pages/Loginpage";
 function App() {
   return (
     <div className="App">
-      <Loginpage />
+      {/* <Loginpage /> */}
+      
     </div>
   );
 }
