@@ -13,8 +13,14 @@ const Allroutes = () => {
       <Route path="/admin/edit" element={<EditRecord />} />
       <Route path="/cartpage" element={<Cartpage />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/login" element={<Loginpage/>}/>
+      <Route path="/Signin" element={<Signinpage/>}/>
     </Routes>
-  );
-};
+     
+    
+     
+
+  )
+}
 
 export default Allroutes;

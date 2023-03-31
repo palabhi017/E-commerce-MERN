@@ -17,12 +17,21 @@ import {
   ListItem,
   HStack,
   useRadioGroup,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  TabPanels,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { MdLocalShipping } from 'react-icons/md';
+
+
 import { BsFillEyeFill, BsPlus, BsStar } from "react-icons/bs";
 import SizeBar from './SizeBar';
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function Singleproductpage() {
   
@@ -46,12 +55,29 @@ export default function Singleproductpage() {
     });
     const group = getRootProps();
   return (
-   <Box w={'90%'}  m={'auto'}>
-     <Container maxW={'7xl'}>
+   <Box w={'90%'} m={'auto'} mt={"5%"}>
+    <Box marginBottom={"50px"}>
+        <Breadcrumb
+          spacing="8px"
+          separator={<ChevronRightIcon color="gray.500" />}
+        >
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">All Product</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Watch</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </Box>
+     <Box>
       <Flex>
-        <Flex>
+        <Flex  w={'90%'}>
           <Box maxW={'15%'} >
-            <Box boxShadow={'md'}   overflow={'hidden'} >
+            <Box boxShadow={'md'} pt={'0.5rem'}  overflow={'hidden'} >
             <Image
            borderRadius={'0.3rem'}
             alt={'product image'}
@@ -64,7 +90,7 @@ export default function Singleproductpage() {
             
           />
             </Box>
-            <Box boxShadow={'md'}   overflow={'hidden'} >
+            <Box boxShadow={'md'} pt={'1rem'}   overflow={'hidden'} >
             <Image
            borderRadius={'0.3rem'}
             alt={'product image'}
@@ -77,7 +103,7 @@ export default function Singleproductpage() {
             
           />
             </Box>
-            <Box boxShadow={'md'}   overflow={'hidden'} >
+            <Box boxShadow={'md'} pt={'1rem'}  overflow={'hidden'} >
             <Image
            borderRadius={'0.3rem'}
             alt={'product image'}
@@ -90,7 +116,7 @@ export default function Singleproductpage() {
             
           />
             </Box>
-            <Box boxShadow={'md'}   overflow={'hidden'} >
+            <Box boxShadow={'md'} pt={'1rem'}  overflow={'hidden'} >
             <Image
            borderRadius={'0.3rem'}
             alt={'product image'}
@@ -104,22 +130,22 @@ export default function Singleproductpage() {
           />
             </Box>
           </Box>
-         <Flex> <Image
+         <Flex > <Image
             rounded={'md'}
             alt={'product image'}
             src={
               'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080'
             }
             fit={'cover'}
+            w='100%'
             align={'center'}
-            w={'80%'}
-           h={'70%'}
+           h={'100%'}
           /></Flex>
         </Flex>
-        <Stack spacing={{ base: 6, md: 10 }} marginLeft={'-40%'}>
-          <Box as={'header'} >
+        <Box textAlign='left' marginLeft={"4%"}>
+          <Box  >
             <Heading
-              lineHeight={1.1}
+             
               fontWeight={600}
               fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
               Automatic Watch
@@ -132,15 +158,7 @@ export default function Singleproductpage() {
             </Text>
           </Box>
 
-          <Stack
-            spacing={{ base: 4, sm: 6 }}
-            direction={'column'}
-            divider={
-              <StackDivider
-                borderColor={useColorModeValue('gray.200', 'gray.600')}
-              />
-            }>
-            <VStack spacing={{ base: 4, sm: 6 }}>
+          
               <Text
                 color={useColorModeValue('gray.500', 'gray.400')}
                 fontSize={'2xl'}
@@ -148,11 +166,14 @@ export default function Singleproductpage() {
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore
               </Text>
-                <BsFillEyeFill style={{ color: "gray" }} />
+              <Flex>
+              <BsFillEyeFill style={{ color: "gray" }} />
               <Text  textTransform={"capitalize"} noOfLines={"2"} fontSize={"sm"}>
                 {randomViewer} people are viewing this right now
               </Text>
-            </VStack>
+              </Flex>
+                
+          
              {/* Cloth Sizes */}
              <Flex my={"3"} direction={"column"}>
               <Text as={"b"} mb={"2"}>
@@ -169,76 +190,6 @@ export default function Singleproductpage() {
                 })}
               </HStack>
             </Flex>
-            <Box>
-              <Text
-                fontSize={{ base: '16px', lg: '18px' }}
-                color={useColorModeValue('yellow.500', 'yellow.300')}
-                fontWeight={'500'}
-                textTransform={'uppercase'}
-                mb={'4'}>
-                Features
-              </Text>
-
-            
-            </Box>
-            <Box>
-              <Text
-                fontSize={{ base: '16px', lg: '18px' }}
-                color={useColorModeValue('yellow.500', 'yellow.300')}
-                fontWeight={'500'}
-                textTransform={'uppercase'}
-                mb={'4'}>
-                Product Details
-              </Text>
-
-              <List spacing={2}>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Between lugs:
-                  </Text>{' '}
-                  20 mm
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Bracelet:
-                  </Text>{' '}
-                  leather strap
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Case:
-                  </Text>{' '}
-                  Steel
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Case diameter:
-                  </Text>{' '}
-                  42 mm
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Dial color:
-                  </Text>{' '}
-                  Black
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Crystal:
-                  </Text>{' '}
-                  Domed, scratch‑resistant sapphire crystal with anti‑reflective
-                  treatment inside
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Water resistance:
-                  </Text>{' '}
-                  5 bar (50 metres / 167 feet){' '}
-                </ListItem>
-              </List>
-            </Box>
-          </Stack>
-
           <Button
             rounded={'none'}
             w={'full'}
@@ -255,13 +206,56 @@ export default function Singleproductpage() {
             Add to cart
           </Button>
 
-          <Stack direction="row" alignItems="center" justifyContent={'center'}>
-            <MdLocalShipping />
-            <Text>2-3 business days delivery</Text>
-          </Stack>
-        </Stack>
+         
+        </Box>
+       
       </Flex>
-    </Container>
+      <Box>
+      <Flex mx={"12"} mt={"8"} direction={"column"}>
+          <Tabs align="center">
+            <TabList>
+              <Tab>Product Description</Tab>
+              <Tab>Shipping & Return</Tab>
+              <Tab>Material & Care</Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel>
+                <Flex w={"100%"} direction={"column"} alignItems={"flex-start"}>
+                  <Text>productdescription</Text>
+                </Flex>
+              </TabPanel>
+              <TabPanel>
+                <Flex direction={"column"} alignItems={"center"}>
+                  <Text fontSize={"sm"}>India-wide Shipping Average time: 4-6 days after the order confirmation.</Text>
+                  <Text as={"b"}>SHIPPING POLICY</Text>
+                  <Text fontSize={"sm"}>
+                    Any product bought from https://koovs.com, will be shipped to the cusrtomer maximum within 4 to 6 days. In case of any exceptions, due to non-availability of a
+                    certain product, we will inform the customer through the email id provided in the customer registration form.
+                  </Text>
+                  <Text fontSize={"sm"}>
+                    If an item in your order isn’t immediately available in our warehouse, then please allow 1 to 2 weeks for your purchase to be processed. Your order may be
+                    processed in multiple shipments, in which case you will be notified of the tracking number when each shipment occurs.
+                  </Text>
+                  <Text fontSize={"sm"}>Any COD orders, if available, will be charged extra @ INR 100 Flat. </Text>
+                  <Text as={"b"}>RETURN/EXHANGE POLICY</Text>
+                  <Text fontSize={"sm"}>
+                    Koovs has a flat 7 days return policy to all our customers. You can conveniently return or exchange any item within 7 days from the date of receipt of the
+                    product. To initiate return or exchange, mail us at care@koovs.com
+                  </Text>
+                </Flex>
+              </TabPanel>
+              <TabPanel>
+                <Flex w={"100%"} direction={"column"} alignItems={"flex-start"}>
+                  <Text>Wash inside out</Text>
+                  <Text>Wash with similar colours</Text>
+                </Flex>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Flex>
+       </Box>
+    </Box>
    </Box>
   );
 }
