@@ -1,9 +1,70 @@
-import { Box, Button, Heading, Input, SimpleGrid } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Heading, Input, SimpleGrid, Text, useToast } from "@chakra-ui/react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useFormik } from 'formik'
+import * as Yup from "yup";
+import {useNavigate} from "react-router-dom"
+
+
 const Loginpage = () => {
+const toast = useToast()
+const navigate = useNavigate()
+const [load,setLoad] = useState(false)
+
+  const LoginSchema = Yup.object({
+    email: Yup.string().email().required("Please Enter Your Email"),
+    password: Yup.string().min(6).required("Please Enter Your Password"),
+  });
+
+  const {values,errors,touched,handleChange,handleSubmit}=useFormik({
+    initialValues: {email:"",password:""},
+    validationSchema:LoginSchema,
+    onSubmit:(values,action)=>{
+          handleLogin(values.email,values.password)
+          // action.resetForm();
+        }
+  })
+
+  const handleLogin= async(email,password)=>{
+   setLoad(true)
+    try {
+      setLoad(false)
+        let res = await axios.post(`http://localhost:8080/user/login`,{email,password})
+      
+        if(res.data.token){
+          
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          localStorage.setItem("token", JSON.stringify(res.data.token));
+          // navigate("/");
+          toast({
+            position: "top",
+            title: "Login Success",
+            description: "you are loged in successfully",
+            status: "success",
+            duration: 4000,
+            isClosable: true,
+          });
+        }else if(res.data.res){
+          toast({
+            position: "top",
+            title: "Login Failed",
+            description: "Your email or password incorrect",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
+
+
+    } catch (error) {
+      setLoad(false)
+        return error;
+    }
+}
+
   return (
-    <Box>
-      <Box marginBottom={"30px"}>
+    <Box p="40px">
+      <Box marginBottom={"30px"} >
         <Heading
           fontWeight="400"
           fontSize="2rem"
@@ -50,23 +111,33 @@ const Loginpage = () => {
             lineHeight="1.8rem"
             padding=".375rem .75rem"
             width="100%"
-            marginBottom="20px"
+            marginBottom="10px"
             type={"email"}
             placeholder="Email"
+            name="email"
+            onChange={handleChange}
+            value={values.email}
           />
+        {errors.email && touched.email &&  <Text textAlign={"left"} fontSize={"14px"} color="red">{errors.email}</Text>} 
+
           <Input
             borderRadius=".25rem"
             borderWidth="1px"
             lineHeight="1.8rem"
             padding=".380rem .75rem"
             width="100%"
-            marginBottom="20px"
+            marginBottom="10px"
             type={"password"}
             placeholder="Password"
+            name="password"
+            onChange={handleChange}
+            value={values.password}
           />
+        {errors.password && touched.password &&  <Text textAlign={"left"} fontSize={"14px"} color="red">{errors.password}</Text>} 
+
           <a
             style={{ cursor: "pointer", borderBottom: "1px solid" }}
-            onMouseEnter
+           href="#"
           >
             Forgot your password?
           </a>
@@ -82,6 +153,8 @@ const Loginpage = () => {
               marginBottom: "10px",
               border: "none",
             }}
+            isLoading={load? true:false}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
