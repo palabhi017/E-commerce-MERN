@@ -9,7 +9,7 @@ try {
     let data = await getAuth(UserData)
    if(data){
 
-       dispatch({type:types.POST_AUTH_SUCCESS,payload:data})
+       dispatch({type:types.AUTH_SUCCESS,payload:data.user})
    }
 } catch (error) {
     dispatch({type:types.AUTH_ERROR})
