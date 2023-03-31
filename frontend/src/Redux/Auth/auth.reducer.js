@@ -5,8 +5,8 @@ const init={
     currentUser: JSON.parse(localStorage.getItem("user"))||{},
     isLoading:false,
     isAuth:localStorage.getItem("token")? true:false,
-    isError:false
-
+    isError:false,
+    
 }
 
 export const reducer = (state=init,{type,payload})=>{
@@ -15,7 +15,6 @@ export const reducer = (state=init,{type,payload})=>{
         return {...state,isLoading:true}
     case types.AUTH_SUCCESS:
         return {...state,isLoading:false,isAuth:true,currentUser:payload}
-    
     case types.AUTH_ERROR:
         return {...state,isError:true,isLoading:false}
     case types.AUTH_LOGOUT:
