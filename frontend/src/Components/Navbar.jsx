@@ -225,7 +225,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
                             <p>Comatoes</p>
                         </div>
                        <div className="thirdpopup">
-                        <div classname="thirdpop">
+                        <div className="thirdpop">
                             <Image className="im4" src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/Screenshot_2022-11-10_at_6.09.16_PM.png?v=1668083985&width=533" alt="men-image12" />
                         </div>
                       </div>
