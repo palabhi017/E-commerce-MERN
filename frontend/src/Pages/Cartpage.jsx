@@ -101,18 +101,18 @@ useEffect(()=>{
                   <Tr>
                     <Td>
                       <Box display={"flex"} gap="10px">
-                        <Image src={el.image} h="130px" />
+                        <Image src={el.img} h="130px" />
                         <Box>
                           <Heading fontWeight={"600"} fontSize={"13px"}>
                             {el.title}
                           </Heading>
                           <Text fontSize={"12px"} color="grey">
                             <span style={{ fontWeight: "600" }}>SIZE : </span>
-                            S
+                            {el.size}
                           </Text>
                           <Text fontSize={"12px"} color="grey">
                             <span style={{ fontWeight: "600" }}>Brand : </span>
-                            {el.brand}
+                            {el.color}
                           </Text>
                           <Button
                             size="xs"
