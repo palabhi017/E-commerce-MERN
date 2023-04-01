@@ -13,7 +13,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const dummy = [
   {
@@ -32,6 +34,30 @@ const dummy = [
   },
 ];
 const Cartpage = () => {
+const [cartdata,setCartdata] =  useState([])
+  const {_id} = useSelector((state)=> state.Auth.currentUser)
+
+const getcartdata = async(id)=>{
+try {
+  let res = await axios.get(`http://localhost:8080/cart/${id}`)
+ setCartdata(res.data)  
+} catch (error) {
+  console.log(error)
+}
+}
+
+const deletecartdata = async(id)=>{
+  try {
+     await axios.get(`http://localhost:8080/cart/delete/${id}`)
+   getcartdata(_id)  
+  } catch (error) {
+    console.log(error)
+  }
+  }
+
+useEffect(()=>{
+  getcartdata(_id)
+},[])
   return (
     <Box>
       <Heading
@@ -70,28 +96,29 @@ const Cartpage = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {dummy.map((el) => {
+              {dummy && dummy.map((el) => {
                 return (
                   <Tr>
                     <Td>
                       <Box display={"flex"} gap="10px">
-                        <Image src={el.img} h="130px" />
+                        <Image src={el.image} h="130px" />
                         <Box>
                           <Heading fontWeight={"600"} fontSize={"13px"}>
                             {el.title}
                           </Heading>
                           <Text fontSize={"12px"} color="grey">
                             <span style={{ fontWeight: "600" }}>SIZE : </span>
-                            {el.size}
+                            S
                           </Text>
                           <Text fontSize={"12px"} color="grey">
-                            <span style={{ fontWeight: "600" }}>Color : </span>
-                            {el.color}
+                            <span style={{ fontWeight: "600" }}>Brand : </span>
+                            {el.brand}
                           </Text>
                           <Button
                             size="xs"
                             textAlign={"left"}
                             backgroundColor={"white"}
+                            onClick={()=> deletecartdata(el._id)}
                           >
                             Remove
                           </Button>
