@@ -8,8 +8,9 @@ import Loginpage from "./Loginpage"
 import Signinpage from './Signinpage'
 import Singleproductpage from './Singleproductpage'
 import Cartpage from "../Pages/Cartpage"
-import Payment from "../Payment"
+import Payment from "./Payment"
 import HomePage from './Homepage'
+import PrivateRoute from './PrivateRoute'
 
 const Allroutes = () => {
   return (
@@ -18,8 +19,8 @@ const Allroutes = () => {
       <Route path="/product" element={<Productpage />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/admin/edit" element={<EditRecord />} />
-      <Route path="/cartpage" element={<Cartpage />} />
-      <Route path="/payment" element={<Payment />} />
+      <Route path="/cartpage" element={<PrivateRoute><Cartpage /></PrivateRoute>} />
+      <Route path="/payment" element={<PrivateRoute><Payment /></PrivateRoute>} />
       <Route path="/adminlogin" element={<AdminLogin />} />
       <Route path="/login" element={<Loginpage/>}/>
       <Route path="/Signin" element={<Signinpage/>}/>

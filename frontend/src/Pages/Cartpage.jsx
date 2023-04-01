@@ -18,7 +18,8 @@ import { RiCouponLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
+import { TOTAL_PRICE } from "../Redux/Products/product.type";
 
 const dummy = [
   {
@@ -41,18 +42,23 @@ const dummy = [
   },
 ];
 const Cartpage = () => {
-  const [total, setTotal] = useState(0);
+ 
   const navigate = useNavigate();
-  const handleClick = () => {
+  const dispatch = useDispatch()
+const [cartdata,setCartdata] =  useState([])
+  const userId = useSelector((state)=> state.Auth.currentUser._id)
+  const total = useSelector((state) => state.productReducer.totalPrice);
+
+
+const handleClick = () => {
     navigate("/payment");
   };
-const [cartdata,setCartdata] =  useState([])
-  const {_id} = useSelector((state)=> state.Auth.currentUser)
 
 const getcartdata = async(id)=>{
 try {
   let res = await axios.get(`http://localhost:8080/cart/${id}`)
  setCartdata(res.data)  
+ handletotal()
 } catch (error) {
   console.log(error)
 }
@@ -61,14 +67,43 @@ try {
 const deletecartdata = async(id)=>{
   try {
      await axios.get(`http://localhost:8080/cart/delete/${id}`)
-   getcartdata(_id)  
+   getcartdata(userId)  
   } catch (error) {
     console.log(error)
   }
   }
 
+const updatequant = async(orderId,num)=>{
+try {
+  await axios.patch(`http://localhost:8080/cart/update/${orderId}`,{quantity:num})
+  getcartdata(userId)
+  console.log(orderId,num)
+} catch (error) {
+  console.log(error)
+}
+}
+
+const handletotal = () => {
+  if (cartdata) {
+  
+    let temp = cartdata;
+    let sum = 0;
+    
+    for (let i = 0; i < temp.length; i++) {
+      sum += temp[i].price * temp[i].quantity;
+    }
+    
+    dispatch({type:TOTAL_PRICE,payload:sum})
+    
+  }
+
+};
+setTimeout(() => {
+  handletotal();
+ 
+}, 100);
 useEffect(()=>{
-  getcartdata(_id)
+  getcartdata(userId)
 },[])
   return (
     <Box w="100%" mt="40px" mb="40px">
@@ -113,26 +148,26 @@ useEffect(()=>{
               </Tr>
             </Thead>
             <Tbody>
-              {dummy && dummy.map((el) => {
+              {cartdata && cartdata.map((el) => {
                 return (
                   <Tr
-                    key={el.id}
+                    key={el._id}
                     boxShadow="rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 2px 0px"
                   >
                     <Td p="40px">
                       <Box display={"flex"} gap="10px">
-                        <Image src={el.img} h="130px" />
+                        <Image src={el.image} h="130px" />
                         <Box>
                           <Heading fontWeight={"600"} fontSize={"13px"}>
                             {el.title}
                           </Heading>
                           <Text fontSize={"12px"} color="grey">
                             <span style={{ fontWeight: "600" }}>SIZE : </span>
-                            {el.size}
+                            S
                           </Text>
                           <Text fontSize={"12px"} color="grey">
                             <span style={{ fontWeight: "600" }}>Brand : </span>
-                            {el.color}
+                            {el.brand}
                           </Text>
                           <Button
                             size="xs"
@@ -160,20 +195,22 @@ useEffect(()=>{
                           backgroundColor={"white"}
                           colorScheme="white"
                           color="black"
+                          onClick={()=> updatequant(el._id,el.quantity-1)}
                         >
-                          +
+                          -
                         </Button>
-                        <p>{el.qnty}</p>
+                        <p>{el.quantity}</p>
                         <Button
                           backgroundColor={"white"}
                           colorScheme="white"
                           color="black"
+                          onClick={()=> updatequant(el._id,el.quantity+1)}
                         >
-                          -
+                          +
                         </Button>
                       </Box>
                     </Td>
-                    <Td isNumeric>Rs. {Number(el.price) * Number(el.qnty)}</Td>
+                    <Td isNumeric>Rs. {Number(el.price) * Number(el.quantity)}</Td>
                   </Tr>
                 );
               })}
@@ -241,7 +278,7 @@ useEffect(()=>{
               fontSize={"15px"}
             >
               <Text>Subtotal</Text>
-              <Text>Rs. 1290</Text>
+              <Text>Rs. {total}</Text>
             </Box>
           </Box>
           <Box>
