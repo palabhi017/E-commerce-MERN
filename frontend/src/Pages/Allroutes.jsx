@@ -7,7 +7,7 @@ import Loginpage from "./Loginpage"
 import Signinpage from './Signinpage'
 import Singleproductpage from './Singleproductpage'
 import Cartpage from "../Pages/Cartpage"
-
+import Payment from "../Payment"
 import HomePage from './Homepage'
 
 const Allroutes = () => {
