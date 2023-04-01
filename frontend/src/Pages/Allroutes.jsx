@@ -8,10 +8,12 @@ import Signinpage from './Signinpage'
 import Singleproductpage from './Singleproductpage'
 import Cartpage from "../Pages/Cartpage"
 
+import HomePage from './Homepage'
 
 const Allroutes = () => {
   return (
     <Routes>
+        <Route path="/" element={<HomePage />} />
       <Route path="/product" element={<Productpage />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/admin/edit" element={<EditRecord />} />
