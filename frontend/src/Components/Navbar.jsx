@@ -37,15 +37,18 @@ import {
   import { SlMagnifier } from "react-icons/sl";
   import { BsPerson } from "react-icons/bs";
   import { BiShoppingBag } from "react-icons/bi";
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
 import { protypes } from '../Redux/Products/product.action';
 import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
-
+import Avatars from "./Avatars"
+import Authbuttons from './Authbuttons';
   const Navbar = ()=>{
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const login = useSelector((state) => state.Auth.isAuth);
+    const name = useSelector((state) => state.Auth.currentUser.name);
 
 
     const handleCate = (gender) => {
@@ -118,7 +121,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
 {/*////////////////////////////////////////////// first navbar complete //////////////////////////////////////////////////////////*/}
 {/*////////////////////////////////////////////// second navbar start //////////////////////////////////////////////////////////*/}
     <Box id="after-top">
-      <Box id="menu_nav">
+      <Box id="menu_nav" >
         <Box
           alignItems="center"
           display="flex"
@@ -127,7 +130,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
           margin="auto"
           id="hover-black"
         >
-          <div id="menu-dropdown" className='containerh'>
+          <div id="menu-dropdown" className='containerh' >
             <div id="menu-title" className='icon' onClick={()=> handleCate("men")}>Men <BiChevronDown/></div>
             <div className="popup">
                     <div className="contpop">
@@ -167,8 +170,8 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
                             <p>Slides</p>
                         </div>
                        <div className="thirdpopup">
-                        <div classname="thirdpop">
-                            <Image className="im3" src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/Screenshot_2022-11-10_at_5.37.53_PM.png?v=1668083230&width=533" alt="men-image11" />
+                        <div classname="thirdpop" >
+                            <Image  className="im3" src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/Screenshot_2022-11-10_at_5.37.53_PM.png?v=1668083230&width=533" alt="men-image11" />
                         </div>
                        </div>
                     </div>
@@ -254,7 +257,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
       </Box>
         <Box>
         <Link to='/'>
-          <Image
+          <Image 
             className="logo hot-logo"
             src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/koovs_final_logo.svg?v=1667889730"
             alt="logo"
@@ -262,35 +265,45 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
         </Link>
         </Box>
         <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={-2}>
-              <Tooltip hasArrow label="Search " bg="black" color="white">
-                <Button backgroundColor={"white"}>
+            <Stack direction={"row"} spacing={2} alignItems="center">
+              
+               
                   <SlMagnifier size={"20px"} />
-                </Button>
-              </Tooltip>
+                
+              
               <Tooltip hasArrow label="Account " bg="black" color="white">
-                <Button as={Link} to={"/login"} backgroundColor={"white"}>
+                {/* <Button as={Link} to={"/login"} backgroundColor={"white"}>
                   <BsPerson size={"20px"} />
-                </Button>
+                </Button> */}
+                <Menu>
+                <Flex direction="column" alignItems="center">
+                
+                {login? <Avatars name={name} /> : <Authbuttons />}
+              </Flex>
+                </Menu>
               </Tooltip>
 
-              <Tooltip hasArrow label="Wishlist " bg="black" color="white">
-                <Button as={Link} to={"/wishlist"} backgroundColor={"white"}>
-                  <AiOutlineStar size={"20px"} />
+              {/* <Tooltip hasArrow label="Wishlist " bg="black" color="white"> */}
+                {/* <Button as={Link} to={"/wishlist"} backgroundColor={"white"}> */}
+                 <Link><AiOutlineStar size={"20px"} /> </Link> 
                   {/* <p className="cartValue">{wishlist.length}</p> */}
-                  <p className="cartValue">0</p>
-                </Button>
-              </Tooltip>
-              <Tooltip hasArrow label="Cart " bg="black" color="white">
-                <Button as={Link} to={"/cartpage"} backgroundColor={"white"}>
-                  <BiShoppingBag size={"20px"} />
+                  {/* <p className="cartValue">0</p> */}
+                {/* </Button> */}
+              {/* </Tooltip> */}
+              {/* <Tooltip hasArrow label="Cart " bg="black" color="white">
+                <Button as={Link} to={"/cartpage"} backgroundColor={"white"}> */}
+                <Box>
+                 <Link to="/cartpage"> <BiShoppingBag size={"20px"} /></Link>
+                  <Box w="17px" pos={"absolute"} mt="-30px" ml="10px" h="20px" borderRadius={"50%"} bgColor="red" color="white">0</Box>
+
+                </Box>
                   {/* <p className="cartValue">{cartItems.length}</p> */}
-                  <p className="cartValue">0</p>
-                </Button>
-              </Tooltip>
+                {/* </Button>
+              </Tooltip> */}
             </Stack>
         </Flex>
       </Box>
+
       <div id="responsive_22">
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <div style={{ marginLeft: "30px" }}>
