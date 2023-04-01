@@ -282,11 +282,11 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
                 </Button>
               </Tooltip>
               <Tooltip hasArrow label="Cart " bg="black" color="white">
-               <Link to="/cart"> <Button as={Link} to={"/cartpage"} backgroundColor={"white"}>
+                <Button as={Link} to={"/cartpage"} backgroundColor={"white"}>
                   <BiShoppingBag size={"20px"} />
                   {/* <p className="cartValue">{cartItems.length}</p> */}
                   <p className="cartValue">0</p>
-                </Button></Link>
+                </Button>
               </Tooltip>
             </Stack>
         </Flex>
