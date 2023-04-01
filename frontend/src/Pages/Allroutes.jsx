@@ -1,5 +1,6 @@
 import React from 'react'
 import {Routes,Route} from "react-router-dom"
+import AdminLogin from "./AdminLogin";
 import Productpage from './Productpage'
 import AdminPanel from "./AdminPanel"
 import EditRecord from "./EditRecord"
@@ -19,16 +20,12 @@ const Allroutes = () => {
       <Route path="/admin/edit" element={<EditRecord />} />
       <Route path="/cartpage" element={<Cartpage />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/adminlogin" element={<AdminLogin />} />
       <Route path="/login" element={<Loginpage/>}/>
       <Route path="/Signin" element={<Signinpage/>}/>
-      <Route path="/product/:id" element={<Singleproductpage/>}/>
-      
+      <Route path="/product/:id" element={<Singleproductpage/>}/>      
     </Routes>
-     
-    
-     
-
-  )
-}
+  );
+};
 
 export default Allroutes;

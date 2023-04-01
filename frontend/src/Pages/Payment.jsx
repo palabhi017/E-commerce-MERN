@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -23,6 +24,7 @@ const validate = (value) => {
 const Payment = () => {
   const [address, setAddress] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [show, setShow] = useState(false);
   const updateData = (e) => {
     setAddress({
       ...address,
@@ -43,27 +45,60 @@ const Payment = () => {
           <ModalHeader>Payment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input border="1px solid" placeholder="Card Number" type="number" />
-            <Box
-              mt="20px"
-              display={"flex"}
-              mb="20px"
-              justifyContent={"space-between"}
-            >
-              <Box display={"flex"} w="60%">
-                <Text fontSize={"sm"}>Valid Thru</Text>
-                <Select placeholder="MM"></Select>
-                <Select placeholder="YY"></Select>
+            <Box display={!show ? "block" : "none"}>
+              <Input
+                border="1px solid"
+                placeholder="Card Number"
+                type="number"
+              />
+              <Box
+                mt="20px"
+                display={"flex"}
+                mb="20px"
+                justifyContent={"space-between"}
+              >
+                <Box
+                  display={"flex"}
+                  w="70%"
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
+                >
+                  <Text fontSize={"sm"} w="">
+                    Valid Thru
+                  </Text>
+                  <Select placeholder="MM" w="30%">
+                    <option>JAN</option>
+                    <option>FEB</option>
+                    <option>MAR</option>
+                    <option>APR</option>
+                    <option>MAY</option>
+                    <option>JUNE</option>
+                    <option>JUL</option>
+                    <option>AUG</option>
+                    <option>SEP</option>
+                    <option>OCT</option>
+                    <option>NOV</option>
+                    <option>DEC</option>
+                  </Select>
+                  <Select placeholder="YY" w="30%">
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2027</option>
+                  </Select>
+                </Box>
+                <Box display={"flex"} alignItems={"center"} w="20%">
+                  <Input
+                    placeholder="CVV"
+                    size="sm"
+                    border="none"
+                    type="number"
+                  />
+                </Box>
               </Box>
-              <Box display={"flex"} alignItems={"center"} w="30%">
-                <Input
-                  placeholder="CVV"
-                  size="sm"
-                  border="none"
-                  type="number"
-                />
-                <Button size="xs">?</Button>
-              </Box>
+            </Box>
+            <Box display={show ? "block" : "none"}>
+              <Image src="https://webnail.com.ua/wp-content/uploads/2020/09/happystate.gif" />
             </Box>
           </ModalBody>
 
@@ -71,7 +106,9 @@ const Payment = () => {
             <Button colorScheme="red" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Proceed to Pay</Button>
+            <Button variant="ghost" onClick={() => setShow(true)}>
+              Proceed to Pay
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
