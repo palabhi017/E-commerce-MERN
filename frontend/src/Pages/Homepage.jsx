@@ -104,7 +104,7 @@ const SingleImage= ({ el }) => {
   return (
     <Flex direction={"column"}>
       <Flex position={"relative"} onMouseOver={over} onMouseOut={out} >
-        <Link to='/products'> 
+        <Link to=''> 
         <Flex transition={"1000ms"}>
             <ImageChangeOnMouseOverr/>
         </Flex>
@@ -210,7 +210,7 @@ const SingleImage2= ({ el }) => {
     return (
       <Flex direction={"column"}>
         <Flex position={"relative"} onMouseOver={over} onMouseOut={out} >
-        <Link to='/products'> 
+        <Link to=''> 
         <Flex transition={"1000ms"}>
             <ImageChangeOnMouseOverr/>
         </Flex>
@@ -337,7 +337,7 @@ const HomePage=()=>{
   },[])
     return (
         <div>
-            <SimpleGrid columns={[1,1,1]} px={"21px"} spacing={"21px"} border="solid red 1px">
+            <SimpleGrid columns={[1,1,1]} px={"21px"} spacing={"21px"}>
                 <Box>
                     <Image
                         src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/10_ARTIST_DESKTOP5.jpg?v=1676618119&width=1500"
@@ -346,21 +346,21 @@ const HomePage=()=>{
                 </Box>
             </SimpleGrid>
 
-            <Box ml='80px' mt='20px' border="solid green 1px">
+            <Box ml='80px' mt='20px' >
                 <Text as='h2' fontSize={"22px"} fontWeight="600" color={'#000000'}display={'inline-block'}>
                     Shop Women's
                 </Text>
             </Box>
 
 
-            <div  style={{margin:"auto", justifyContent:"center", width:"90%",border:"solid red 1px"}}>
+            <div  style={{margin:"auto", justifyContent:"center", width:"90%"}}>
                     <Slider 
                     {...settings1} 
                     >
                     {womenData.map((el)=>{
                     return(
-                        <Box border="solid teal 1px" key={el.id}   borderWidth={'1px'} borderRadius='lg' overflow={'hidden'} >
-                          <Link to='/products'> 
+                        <Box  key={el.id}   borderWidth={'1px'} borderRadius='lg' overflow={'hidden'} >
+                          <Link to=''> 
                               <Image src={el.image} alt={el.title}                             
                             /> 
                             </Link>                       
@@ -395,7 +395,7 @@ const HomePage=()=>{
                     Shop Men's
                 </Text>
             </Box>
-            <div style={{margin:"auto", justifyContent:"center", width:"90%",border:"solid green 1px"}} >
+            <div style={{margin:"auto", justifyContent:"center", width:"90%"}} >
                     <Slider 
                     {...settings1}
                     >
@@ -434,7 +434,7 @@ const HomePage=()=>{
                 The couture club
             </Heading>
             <SimpleGrid >
-                <Flex w={"100%"} direction={"column"} border="solid green 1px">
+                <Flex w={"100%"} direction={"column"} >
                     <SimpleGrid m={"8"} columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={"8"}>
                         {varsityData.map((el, id) => (
                         <SingleImage key={id} el={el} />

@@ -118,6 +118,7 @@
   /* //////////////////////////////navbar second part////////////////////// */
   /* //////////////////////slide window//////////////////////// */
   #after-top {
+    margin: auto;
     padding: 30px;
     display: flex;
     gap: 28%;
@@ -125,9 +126,15 @@
     align-items: center;
     /* border: 1px solid red; */
     height: 20px;
-    margin: auto;
+    width: 100%;
   }
-  
+  .logo{
+    /* border: solid red 1px; */
+    margin-left: -80px;
+  }
+  #menu_nav{
+    margin-left: 40px;
+  }
   .logo {
     min-width: 200px;
     height: 40px;

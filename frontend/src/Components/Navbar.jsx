@@ -118,7 +118,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
 {/*////////////////////////////////////////////// first navbar complete //////////////////////////////////////////////////////////*/}
 {/*////////////////////////////////////////////// second navbar start //////////////////////////////////////////////////////////*/}
     <Box id="after-top">
-      <Box id="menu_nav">
+      <Box id="menu_nav" >
         <Box
           alignItems="center"
           display="flex"
@@ -127,7 +127,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
           margin="auto"
           id="hover-black"
         >
-          <div id="menu-dropdown" className='containerh'>
+          <div id="menu-dropdown" className='containerh' >
             <div id="menu-title" className='icon' onClick={()=> handleCate("men")}>Men <BiChevronDown/></div>
             <div className="popup">
                     <div className="contpop">
@@ -167,8 +167,8 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
                             <p>Slides</p>
                         </div>
                        <div className="thirdpopup">
-                        <div classname="thirdpop">
-                            <Image className="im3" src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/Screenshot_2022-11-10_at_5.37.53_PM.png?v=1668083230&width=533" alt="men-image11" />
+                        <div classname="thirdpop" >
+                            <Image  className="im3" src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/Screenshot_2022-11-10_at_5.37.53_PM.png?v=1668083230&width=533" alt="men-image11" />
                         </div>
                        </div>
                     </div>
@@ -254,14 +254,14 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
       </Box>
         <Box>
         <Link to='/'>
-          <Image
+          <Image 
             className="logo hot-logo"
             src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/koovs_final_logo.svg?v=1667889730"
             alt="logo"
           />
         </Link>
         </Box>
-        <Flex alignItems={"center"}>
+        <Flex alignItems={"center"}  marginLeft="-10px">
             <Stack direction={"row"} spacing={-2}>
               <Tooltip hasArrow label="Search " bg="black" color="white">
                 <Button backgroundColor={"white"}>
@@ -291,6 +291,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
             </Stack>
         </Flex>
       </Box>
+
       <div id="responsive_22">
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <div style={{ marginLeft: "30px" }}>
