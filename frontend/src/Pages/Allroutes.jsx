@@ -22,7 +22,7 @@ const Allroutes = () => {
       <Route path="/login" element={<Loginpage/>}/>
       <Route path="/Signin" element={<Signinpage/>}/>
       <Route path="/product/:id" element={<Singleproductpage/>}/>
-      <Route path="/cart" element={<Cartpage/>}/>
+      
     </Routes>
      
     
