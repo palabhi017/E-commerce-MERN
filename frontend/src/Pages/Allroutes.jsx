@@ -5,6 +5,8 @@ import EditRecord from "./EditRecord";
 import Productpage from "./Productpage";
 import Cartpage from "./Cartpage";
 import Payment from "./Payment";
+import Loginpage from "./Loginpage";
+import Signinpage from "./Signinpage";
 const Allroutes = () => {
   return (
     <Routes>

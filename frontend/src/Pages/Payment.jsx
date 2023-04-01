@@ -11,6 +11,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -41,15 +43,35 @@ const Payment = () => {
           <ModalHeader>Payment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input placeholder="Card Number" type="number" />
-            <Input placeholder="CVV" type="number" />
+            <Input border="1px solid" placeholder="Card Number" type="number" />
+            <Box
+              mt="20px"
+              display={"flex"}
+              mb="20px"
+              justifyContent={"space-between"}
+            >
+              <Box display={"flex"} w="60%">
+                <Text fontSize={"sm"}>Valid Thru</Text>
+                <Select placeholder="MM"></Select>
+                <Select placeholder="YY"></Select>
+              </Box>
+              <Box display={"flex"} alignItems={"center"} w="30%">
+                <Input
+                  placeholder="CVV"
+                  size="sm"
+                  border="none"
+                  type="number"
+                />
+                <Button size="xs">?</Button>
+              </Box>
+            </Box>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="red" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button variant="ghost">Proceed to Pay</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
