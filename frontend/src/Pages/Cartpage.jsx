@@ -15,8 +15,11 @@ import {
 import { BsPencil } from "react-icons/bs";
 import { TbBus } from "react-icons/tb";
 import { RiCouponLine } from "react-icons/ri";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 const dummy = [
   {
     img: "https://cdn.shopify.com/s/files/1/0677/1464/6315/products/CataloguetemplateKOOVS_1_-06_a88e071b-7938-4eda-8d07-8e61c01e0d57.jpg?v=1680003786&width=360",
@@ -43,6 +46,30 @@ const Cartpage = () => {
   const handleClick = () => {
     navigate("/payment");
   };
+const [cartdata,setCartdata] =  useState([])
+  const {_id} = useSelector((state)=> state.Auth.currentUser)
+
+const getcartdata = async(id)=>{
+try {
+  let res = await axios.get(`http://localhost:8080/cart/${id}`)
+ setCartdata(res.data)  
+} catch (error) {
+  console.log(error)
+}
+}
+
+const deletecartdata = async(id)=>{
+  try {
+     await axios.get(`http://localhost:8080/cart/delete/${id}`)
+   getcartdata(_id)  
+  } catch (error) {
+    console.log(error)
+  }
+  }
+
+useEffect(()=>{
+  getcartdata(_id)
+},[])
   return (
     <Box w="100%" mt="40px" mb="40px">
       <Heading
@@ -86,7 +113,7 @@ const Cartpage = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {dummy.map((el) => {
+              {dummy && dummy.map((el) => {
                 return (
                   <Tr
                     key={el.id}
@@ -104,13 +131,14 @@ const Cartpage = () => {
                             {el.size}
                           </Text>
                           <Text fontSize={"12px"} color="grey">
-                            <span style={{ fontWeight: "600" }}>Color : </span>
+                            <span style={{ fontWeight: "600" }}>Brand : </span>
                             {el.color}
                           </Text>
                           <Button
                             size="xs"
                             textAlign={"left"}
                             backgroundColor={"white"}
+                            onClick={()=> deletecartdata(el._id)}
                           >
                             Remove
                           </Button>

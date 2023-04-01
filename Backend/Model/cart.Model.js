@@ -7,9 +7,9 @@ const cartSchema = mongoose.Schema({
     price: Number,
     gender: String,
     category: String,
-    brand: String
-    
-    
+    brand: String,
+    quantity:Number,
+    userID:String
 })
 
 const cartModel = mongoose.model("cartItem",cartSchema)
