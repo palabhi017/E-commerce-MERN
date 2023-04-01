@@ -1,20 +1,15 @@
 import {
   Box,
-  chakra,
-  Container,
-  Stack,
+ 
   Text,
   Image,
   Flex,
-  VStack,
+  
   Button,
   Heading,
-  SimpleGrid,
-  StackDivider,
+  
   useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
+ 
   HStack,
   useRadioGroup,
   Tabs,
@@ -25,28 +20,54 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  VStack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 
-import { BsFillEyeFill, BsPlus, BsStar } from "react-icons/bs";
+import { BsFillEyeFill } from "react-icons/bs";
 import SizeBar from './SizeBar';
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function Singleproductpage() {
+  const [data,setData] = useState({})
+  const {id} = useParams();
+const {_id} = useSelector((state)=> state.Auth.currentUser)
+
+  const getProduct = async () => {
+ 
+    try {
+        let res = await axios.get(`http://localhost:8080/product/${id}`)
+        
+        setData(res.data)
+    } catch (error) {
+        return error;
+    }
+}
+
+const addtocart = async () => {
+ const item = {
+  image:data.image,
+  title:data.title,
+  price:data.price,
+  gender:data.gender,
+  category:data.category,
+  brand:data.brand,
+  quantity:1,
+  userID:_id
+ }
+  try {
+      let res = await axios.post(`http://localhost:8080/cart/add`,{item})
+      
+      return res.data;
+  } catch (error) {
+      return error;
+  }
+}
   
-  const [randomViewer, SetRandomViewer] = useState(23);
-
-  //Dummy View Users
-  /* --> Difference of 26-18, multiplied to random number, got its floor value, added min value */
-  useEffect(() => {
-    const viewerID = setInterval(() => {
-      SetRandomViewer((prev) => Math.floor(Math.random() * 8) + 18);
-    }, 13000);
-    return () => clearInterval(viewerID);
-  }, []);
-
-    /* Cloth Sizes Can be Picked by the console.log */
     const options = ["S", "M", "L", "XL"];
     const { getRootProps, getRadioProps } = useRadioGroup({
       name: "size",
@@ -54,6 +75,10 @@ export default function Singleproductpage() {
       onChange: console.log,
     });
     const group = getRootProps();
+
+useEffect(()=>{
+  getProduct()
+},[])
   return (
    <Box w={'90%'} m={'auto'} mt={"5%"}>
     <Box marginBottom={"50px"}>
@@ -148,13 +173,13 @@ export default function Singleproductpage() {
              
               fontWeight={600}
               fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-              Automatic Watch
+              {data.title}
             </Heading>
             <Text
               color={useColorModeValue('gray.900', 'gray.400')}
               fontWeight={300}
               fontSize={'2xl'}>
-              $350.00 USD
+              ${data.price}.00
             </Text>
           </Box>
 
@@ -169,7 +194,7 @@ export default function Singleproductpage() {
               <Flex>
               <BsFillEyeFill style={{ color: "gray" }} />
               <Text  textTransform={"capitalize"} noOfLines={"2"} fontSize={"sm"}>
-                {randomViewer} people are viewing this right now
+                 people are viewing this right now
               </Text>
               </Flex>
                 
@@ -257,5 +282,23 @@ export default function Singleproductpage() {
        </Box>
     </Box>
    </Box>
+  // <>
+  // <HStack w="100%" h="600px" p="30px 60px">
+  //   <HStack w="50%" h="100%" border="1px solid red"  p="10px 20px" justifyContent={"space-around"}>
+  //     <VStack h="90%" w="20%" border="1px solid red">
+  //       <Box w="100%" h="15%"></Box>
+  //       <Box w="100%" h="15%"></Box>
+  //       <Box w="100%" h="15%"></Box>
+  //       <Box w="100%" h="15%"></Box>
+  //       <Box w="100%" h="15%"></Box>
+        
+  //     </VStack>
+  //     <Box w="70%" h="90%" border="1px solid red">
+        
+  //       </Box>  
+  //   </HStack>
+  //   <VStack w="50%" h="100%" border="1px solid red"></VStack>
+  // </HStack>
+  // </>
   );
 }
