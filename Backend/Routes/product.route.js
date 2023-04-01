@@ -15,7 +15,16 @@ productRouter.post("/add",async(req,res)=>{
     }
  
   })
-
+productRouter.get("/:id",async(req,res)=>{
+    const id = req.params.id
+    try {
+        const product = await productModel.findById(id)
+        res.send(product)
+    } catch (error) {
+        console.log(error)
+        res.send("bad Request")
+    }
+})
 
   productRouter.get("/",async(req,res)=>{
     try {
