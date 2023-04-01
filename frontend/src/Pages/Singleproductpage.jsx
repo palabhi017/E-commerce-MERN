@@ -50,19 +50,19 @@ const {_id} = useSelector((state)=> state.Auth.currentUser)
 
 const addtocart = async () => {
  const item = {
-  image:data.image,
-  title:data.title,
-  price:data.price,
-  gender:data.gender,
-  category:data.category,
-  brand:data.brand,
+  image:data?.image,
+  title:data?.title,
+  price:data?.price,
+  gender:data?.gender,
+  category:data?.category,
+  brand:data?.brand,
   quantity:1,
   userID:_id
  }
   try {
-      let res = await axios.post(`http://localhost:8080/cart/add`,{item})
+     await axios.post(`http://localhost:8080/cart/add`,item)
       
-      return res.data;
+      console.log("yes")
   } catch (error) {
       return error;
   }
@@ -224,6 +224,7 @@ useEffect(()=>{
             bg={useColorModeValue('gray.900', 'gray.50')}
             color={useColorModeValue('white', 'gray.900')}
             textTransform={'uppercase'}
+            onClick={()=> addtocart()}
             _hover={{
               transform: 'translateY(2px)',
               boxShadow: 'lg',
