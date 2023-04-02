@@ -23,7 +23,7 @@ const AdminLogin = () => {
       alert("Login Successfull");
       navigate("/admin");
     } else if (email === "abhishek@gmail.com" && password !== "abhishek") {
-      alert("Please enter correct password");
+      alert("Please Enter correct password");
     } else {
       alert("Wrong Credentials");
     }
