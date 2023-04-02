@@ -43,6 +43,11 @@ productRouter.get("/:id",async(req,res)=>{
         if(req.query.price){
             s.price = Number(req.query.price)
         }
+       
+        if(req.query.search){
+            q.title = { $regex: req.query.search, $options: 'i' }
+        }
+
     const products = await productModel.find(q).sort(s)
     
     res.status(200).send(products)
@@ -54,6 +59,11 @@ productRouter.get("/:id",async(req,res)=>{
     }
    
 })
+
+
+
+
+
 
 productRouter.patch("/update/:id", async(req,res)=>{
     const id = req.params.id
