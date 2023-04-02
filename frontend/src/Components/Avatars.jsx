@@ -18,6 +18,8 @@ const Avatars = ({ name }) => {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     dispatch({ type: AUTH_LOGOUT });
+ 
+
   };
 
   return (

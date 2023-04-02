@@ -11,6 +11,8 @@ import Cartpage from "../Pages/Cartpage"
 import Payment from "./Payment"
 import HomePage from './Homepage'
 import PrivateRoute from './PrivateRoute'
+import AddItem from './AddItem';
+import Orders from './Orders';
 
 const Allroutes = () => {
   return (
@@ -18,8 +20,9 @@ const Allroutes = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/product" element={<Productpage />} />
       <Route path="/admin" element={<AdminPanel />} />
-      <Route path="/admin/edit" element={<EditRecord />} />
+      <Route path="/admin/add" element={<AddItem />} />
       <Route path="/cartpage" element={<PrivateRoute><Cartpage /></PrivateRoute>} />
+      <Route path="/order" element={<PrivateRoute><Orders /></PrivateRoute>} />
       <Route path="/payment" element={<PrivateRoute><Payment /></PrivateRoute>} />
       <Route path="/adminlogin" element={<AdminLogin />} />
       <Route path="/login" element={<Loginpage/>}/>

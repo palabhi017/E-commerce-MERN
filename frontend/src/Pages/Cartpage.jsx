@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector } from "react-redux";
-import { TOTAL_PRICE } from "../Redux/Products/product.type";
+import { CARTITEMS, TOTAL_PRICE } from "../Redux/Products/product.type";
 
 const dummy = [
   {
@@ -59,6 +59,7 @@ try {
   let res = await axios.get(`http://localhost:8080/cart/${id}`)
  setCartdata(res.data)  
  handletotal()
+ dispatch({type:CARTITEMS,payload:res.data.length})
 } catch (error) {
   console.log(error)
 }
@@ -66,7 +67,7 @@ try {
 
 const deletecartdata = async(id)=>{
   try {
-     await axios.get(`http://localhost:8080/cart/delete/${id}`)
+     await axios.delete(`http://localhost:8080/cart/delete/${id}`)
    getcartdata(userId)  
   } catch (error) {
     console.log(error)

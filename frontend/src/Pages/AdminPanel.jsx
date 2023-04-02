@@ -1,6 +1,18 @@
 import {
+  Button,
   Center,
+  Flex,
+  FormControl,
+  FormLabel,
   Heading,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Table,
   TableContainer,
   Tbody,
@@ -8,11 +20,14 @@ import {
   Thead,
   Tr,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ProductTable from "../Components/Table";
 import ConfirmDeleteModal from "../Components/ConfirmDelete";
-
+import axios from "axios"
+import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 const products = [
   {
     image:
@@ -110,16 +125,61 @@ function AdminPanel() {
   const [data, setData] = useState([]);
   const [dataState, setDataState] = useState(true);
   const deleteModal = useDisclosure();
+ const toast = useToast()
+ const { isOpen, onOpen, onClose } = useDisclosure()
+  const finalRef = React.useRef(null)
 
-  async function fetchData() {
-    setData(products);
+  
+ const getAllProducts = async()=>{
+ try {
+  let res = await axios.get(`http://localhost:8080/product`)
+  let data = res.data;
+  setData(data)
+ } catch (error) {
+  console.log(error)
+ }
   }
 
+
+
+  const handleDelete = async(id) => {
+    
+    await axios.delete(`http://localhost:8080/product/delete/${id}`)
+    getAllProducts()
+    toast({
+      position: "top",
+      title: "Item Deleted",
+      description: "Item deleted successfully form store.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+  const handleEdit = async(id,item) => {
+    try {
+      console.log("edit")
+    await axios.patch(`http://localhost:8080/product/update/${id}`,item)
+    getAllProducts()
+    toast({
+      position: "top",
+      title: "Item Updated",
+      description: "Item Updated successfully.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   useEffect(() => {
-    fetchData();
+    getAllProducts();
   }, [dataState]);
 
   return (
+    <>
     <Center
       pb={"60px"}
       px={"30px"}
@@ -128,11 +188,8 @@ function AdminPanel() {
       w={"100%"}
       mt={12}>
       <Heading color={"#333"}>List of Products</Heading>
-      <ConfirmDeleteModal
-        setDataState={setDataState}
-        dataState={dataState}
-        deleteModal={deleteModal}
-      />
+      
+     <Link to="/admin/add"> <Button bgColor={"red.400"} color="white" alignSelf={"right"}>+ Add Item</Button></Link>
       <TableContainer>
         <Table variant="simple">
           <Thead>
@@ -149,26 +206,21 @@ function AdminPanel() {
           </Thead>
           <Tbody>
             {data
-              ? data.map((product) => {
+              ? data.map((e) => {
                   return (
-                    <ProductTable
-                      dataState={dataState}
-                      setDataState={setDataState}
-                      deleteModal={deleteModal}
-                      image={product.image}
-                      title={product.title}
-                      price={product.price}
-                      gender={product.gender}
-                      category={product.category}
-                      brand={product.brand}
-                    />
+                    <ProductTable  key={e.id}
+                    objProp={e}
+                    funcProp={handleDelete}
+                    funcedit={handleEdit}/>
                   );
                 })
               : null}
           </Tbody>
         </Table>
       </TableContainer>
-    </Center>
+</Center>
+
+</>
   );
 }
 

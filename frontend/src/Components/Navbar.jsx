@@ -24,7 +24,8 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    Flex
+    Flex,
+    VStack
   } from "@chakra-ui/react";
   import { Link, useNavigate } from "react-router-dom";
   import "./Navbar.css"
@@ -41,6 +42,10 @@ import {
 import { useDispatch,useSelector} from 'react-redux';
 import { protypes } from '../Redux/Products/product.action';
 import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
+import Avatars from "./Avatars";
+import Authbuttons from "./Authbuttons"
+import {useState} from "react"
+import SearchCard from "./SearchCard"
 
   const Navbar = ()=>{
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -49,7 +54,34 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
     const navigate = useNavigate()
     const login = useSelector((state) => state.Auth.isAuth);
     const name = useSelector((state) => state.Auth.currentUser.name);
+    const cartItems = useSelector((state) => state.productReducer.cartItems);
+    const [searchInput, setSearchInput] = useState("");
+    const [searchData,setSearchData]= useState([])
+    const [searchBar,setSearchBar] = useState(false)
 
+    const handleSearch = async()=>{
+      try {
+        let res = await fetch(`http://localhost:8080/product?search=${searchInput}`)
+        let data = await res.json()
+        setSearchData(data)
+        if(searchInput===""){
+           setSearchData([])
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      
+    } 
+    const doSomeMagic=(fn,d)=>{
+      let timer;
+      return function (){
+    clearTimeout(timer)
+        timer = setTimeout(()=>{
+          fn()
+        },d)
+      }
+    }
+    const debFunction = doSomeMagic(handleSearch,500)
 
     const handleCate = (gender) => {
       const getProductsParam = {
@@ -68,7 +100,9 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
 
       navigate("/product")
     };
-
+    const handleInput=()=>{
+      setSearchInput("")
+      }
     return (
         <div>
             <Box className="first-header">
@@ -268,7 +302,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
             <Stack direction={"row"} spacing={2} alignItems="center">
               
                
-                  <SlMagnifier size={"20px"} />
+                <Link onClick={()=> setSearchBar(!searchBar)}>  <SlMagnifier size={"20px"} /></Link>
                 
               
               <Tooltip hasArrow label="Account " bg="black" color="white">
@@ -294,7 +328,7 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
                 <Button as={Link} to={"/cartpage"} backgroundColor={"white"}> */}
                 <Box>
                  <Link to="/cartpage"> <BiShoppingBag size={"20px"} /></Link>
-                  <Box w="17px" pos={"absolute"} mt="-30px" ml="10px" h="20px" borderRadius={"50%"} bgColor="red" color="white">0</Box>
+                  <Box w="17px" pos={"absolute"} mt="-30px" ml="10px" h="20px" borderRadius={"50%"} bgColor="red" color="white">{cartItems}</Box>
 
                 </Box>
                   {/* <p className="cartValue">{cartItems.length}</p> */}
@@ -360,6 +394,13 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
           </Flex>
       </div>
       </Box>
+      <Input w="50%" m="auto" display={searchBar? "block":"none"} value={searchInput} onChange={(e)=>{
+                  setSearchInput(e.target.value)
+                  debFunction()
+                }} placeholder="Try Saree, Kurti or Search by Product Code"></Input>
+      <VStack h="300px" zIndex={1} ml="25%" w="50%" pl="5px" display={searchData.length>0 && searchInput.length>0?"block":"none"} overflowY={"auto"} bgColor={"white"} pos="absolute">
+              {searchData.length>0 && searchData.map((e)=> <SearchCard inputs={handleInput} data={e}/>)}
+      </VStack>
       </div>
     )
   }

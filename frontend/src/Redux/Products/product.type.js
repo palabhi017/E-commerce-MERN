@@ -6,4 +6,5 @@ export const  PRODUCTS_PAGE = "PRODUCTS_PAGE";
 export const  TOTAL_PRICE = "TOTAL_PRICE";
 export const  CATEGORY = "CAT";
 export const  BRAND = "BRAND";
+export const  CARTITEMS = "CARTITEMS";
 
