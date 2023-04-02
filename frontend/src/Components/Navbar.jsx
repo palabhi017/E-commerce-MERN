@@ -1,4 +1,5 @@
 import * as React from 'react'
+import image from "../assests/Desiwearlogo.png"
 import {
     Box,
     useDisclosure,
@@ -40,6 +41,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { protypes } from '../Redux/Products/product.action';
 import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
+
 
   const Navbar = ()=>{
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -255,8 +257,8 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
         <Box>
         <Link to='/'>
           <Image 
-            className="logo hot-logo"
-            src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/koovs_final_logo.svg?v=1667889730"
+            className="logo hot-logo" 
+            src={image}
             alt="logo"
           />
         </Link>
