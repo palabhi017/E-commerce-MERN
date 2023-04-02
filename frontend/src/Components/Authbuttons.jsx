@@ -34,7 +34,7 @@ const Authbuttons = () => {
             <Link to="/login" style={{width:"100%"}}> <Button w="80%" h="45px">
                Login
             </Button></Link>
-            <Link to="/Admin" style={{width:"100%"}}><Button w="80%" h="45px">
+            <Link to="/adminlogin" style={{width:"100%"}}><Button w="80%" h="45px">
               Admin login
             </Button></Link>
             <Link to="/signin" style={{width:"100%"}}>  <Button w="80%" h="45px" bg="#F43397" color="#fff">

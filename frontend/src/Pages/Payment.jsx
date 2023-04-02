@@ -16,7 +16,10 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const validate = (value) => {
   console.log(value, "abbb");
 };
@@ -25,6 +28,9 @@ const Payment = () => {
   const [address, setAddress] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
+  const userId = useSelector((state)=> state.Auth.currentUser._id)
+
+
   const updateData = (e) => {
     setAddress({
       ...address,
@@ -37,6 +43,34 @@ const Payment = () => {
     console.log(address, "a");
     onOpen();
   };
+
+  const handleorder= async(id)=>{
+    setShow(true)
+     try {
+      let res = await axios.get(`http://localhost:8080/cart/${id}`)
+       addorder(res.data)
+     } catch (error) {
+      console.log(error)
+     }
+  }
+const addorder= async(data)=>{
+try {
+  await axios.post(`http://localhost:8080/order/add`,data)
+  deletecartdata(userId)
+} catch (error) {
+  console.log(error)
+}
+}
+
+const deletecartdata = async(id)=>{
+  try {
+     await axios.get(`http://localhost:8080/cart/deleteall/${id}`)
+    
+  } catch (error) {
+    console.log(error)
+  }
+  }
+
   return (
     <Box mt="50px">
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -106,9 +140,9 @@ const Payment = () => {
             <Button colorScheme="red" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost" onClick={() => setShow(true)}>
+           <Link to="/order"> <Button variant="ghost" onClick={()=>handleorder(userId)}>
               Proceed to Pay
-            </Button>
+            </Button></Link>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -1,4 +1,4 @@
-const {cartModel} = require("../Model/cart.model")
+const {cartModel} = require("../Model/cart.Model")
 const express = require("express")
 const jwt = require('jsonwebtoken');
 const {authenticate} = require("../Middleware/auth.middleware")
@@ -54,5 +54,18 @@ cartRouter.delete("/delete/:id", async(req,res)=>{
     }
 
 })
+
+cartRouter.delete("/deleteall/:id", async(req,res)=>{
+    try {
+        const id = req.params.id
+        const new_data = await cartModel.deleteMany({userID:id})
+        res.status(200).json({"massage":"Data Deleted successfully"})
+    } catch (error) {
+         res.status(400).json({"err":"bad request"})  
+    }
+
+})
+
+
 
 module.exports = {cartRouter}

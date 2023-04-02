@@ -39,7 +39,7 @@ const dispatch = useDispatch()
           localStorage.setItem("user", JSON.stringify(res.data.user));
           localStorage.setItem("token", JSON.stringify(res.data.token));
           dispatch({ type: AUTH_SUCCESS, payload: res.data.user })
-          // navigate("/");
+          navigate("/")
           toast({
             position: "top",
             title: "Login Success",

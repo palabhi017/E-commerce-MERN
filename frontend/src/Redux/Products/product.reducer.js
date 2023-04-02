@@ -10,7 +10,8 @@ const init={
     currPage:1,
     totalPrice:0,
     category:null,
-    brand:null
+    brand:null,
+    cartItems:0
 }
 
 
@@ -33,6 +34,8 @@ export const reducer = (state = init, { type, payload }) => {
       return {...state,category:payload}
     case types.BRAND:
       return {...state,brand:payload}
+    case types.CARTITEMS:
+      return {...state,cartItems:payload}
     default:
       return state;
   }

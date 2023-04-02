@@ -49,6 +49,8 @@ import Authbuttons from './Authbuttons';
     const navigate = useNavigate()
     const login = useSelector((state) => state.Auth.isAuth);
     const name = useSelector((state) => state.Auth.currentUser.name);
+    const cartItems = useSelector((state) => state.productReducer.cartItems);
+
 
 
     const handleCate = (gender) => {
@@ -294,7 +296,7 @@ import Authbuttons from './Authbuttons';
                 <Button as={Link} to={"/cartpage"} backgroundColor={"white"}> */}
                 <Box>
                  <Link to="/cartpage"> <BiShoppingBag size={"20px"} /></Link>
-                  <Box w="17px" pos={"absolute"} mt="-30px" ml="10px" h="20px" borderRadius={"50%"} bgColor="red" color="white">0</Box>
+                  <Box w="17px" pos={"absolute"} mt="-30px" ml="10px" h="20px" borderRadius={"50%"} bgColor="red" color="white">{cartItems}</Box>
 
                 </Box>
                   {/* <p className="cartValue">{cartItems.length}</p> */}
