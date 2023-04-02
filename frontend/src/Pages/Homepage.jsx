@@ -339,7 +339,7 @@ const HomePage=()=>{
         <div>
             <SimpleGrid columns={[1,1,1]} px={"21px"} spacing={"21px"}>
                 <Box>
-                    <Image
+                    <Image 
                         src="https://cdn.shopify.com/s/files/1/0677/1464/6315/files/10_ARTIST_DESKTOP5.jpg?v=1676618119&width=1500"
                         alt="koovs-big_logo"
                     />
