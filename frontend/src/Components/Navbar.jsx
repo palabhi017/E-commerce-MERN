@@ -38,16 +38,17 @@ import {
   import { SlMagnifier } from "react-icons/sl";
   import { BsPerson } from "react-icons/bs";
   import { BiShoppingBag } from "react-icons/bi";
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
 import { protypes } from '../Redux/Products/product.action';
 import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
-
 
   const Navbar = ()=>{
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const login = useSelector((state) => state.Auth.isAuth);
+    const name = useSelector((state) => state.Auth.currentUser.name);
 
 
     const handleCate = (gender) => {
@@ -263,33 +264,42 @@ import { BRAND, CATEGORY, PRODUCTS_PAGE } from '../Redux/Products/product.type';
           />
         </Link>
         </Box>
-        <Flex alignItems={"center"}  marginLeft="-10px">
-            <Stack direction={"row"} spacing={-2}>
-              <Tooltip hasArrow label="Search " bg="black" color="white">
-                <Button backgroundColor={"white"}>
+        <Flex alignItems={"center"}>
+            <Stack direction={"row"} spacing={2} alignItems="center">
+              
+               
                   <SlMagnifier size={"20px"} />
-                </Button>
-              </Tooltip>
+                
+              
               <Tooltip hasArrow label="Account " bg="black" color="white">
-                <Button as={Link} to={"/login"} backgroundColor={"white"}>
+                {/* <Button as={Link} to={"/login"} backgroundColor={"white"}>
                   <BsPerson size={"20px"} />
-                </Button>
+                </Button> */}
+                <Menu>
+                <Flex direction="column" alignItems="center">
+                
+                {login? <Avatars name={name} /> : <Authbuttons />}
+              </Flex>
+                </Menu>
               </Tooltip>
 
-              <Tooltip hasArrow label="Wishlist " bg="black" color="white">
-                <Button as={Link} to={"/wishlist"} backgroundColor={"white"}>
-                  <AiOutlineStar size={"20px"} />
+              {/* <Tooltip hasArrow label="Wishlist " bg="black" color="white"> */}
+                {/* <Button as={Link} to={"/wishlist"} backgroundColor={"white"}> */}
+                 <Link><AiOutlineStar size={"20px"} /> </Link> 
                   {/* <p className="cartValue">{wishlist.length}</p> */}
-                  <p className="cartValue">0</p>
-                </Button>
-              </Tooltip>
-              <Tooltip hasArrow label="Cart " bg="black" color="white">
-                <Button as={Link} to={"/cartpage"} backgroundColor={"white"}>
-                  <BiShoppingBag size={"20px"} />
+                  {/* <p className="cartValue">0</p> */}
+                {/* </Button> */}
+              {/* </Tooltip> */}
+              {/* <Tooltip hasArrow label="Cart " bg="black" color="white">
+                <Button as={Link} to={"/cartpage"} backgroundColor={"white"}> */}
+                <Box>
+                 <Link to="/cartpage"> <BiShoppingBag size={"20px"} /></Link>
+                  <Box w="17px" pos={"absolute"} mt="-30px" ml="10px" h="20px" borderRadius={"50%"} bgColor="red" color="white">0</Box>
+
+                </Box>
                   {/* <p className="cartValue">{cartItems.length}</p> */}
-                  <p className="cartValue">0</p>
-                </Button>
-              </Tooltip>
+                {/* </Button>
+              </Tooltip> */}
             </Stack>
         </Flex>
       </Box>

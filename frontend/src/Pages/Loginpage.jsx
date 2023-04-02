@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import { useFormik } from 'formik'
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom"
-
+import { AUTH_SUCCESS } from "../Redux/Auth/auth.types";
+import {useDispatch} from "react-redux"
 
 const Loginpage = () => {
 const toast = useToast()
 const navigate = useNavigate()
 const [load,setLoad] = useState(false)
+const dispatch = useDispatch()
+
 
   const LoginSchema = Yup.object({
     email: Yup.string().email().required("Please Enter Your Email"),
@@ -35,6 +38,7 @@ const [load,setLoad] = useState(false)
           
           localStorage.setItem("user", JSON.stringify(res.data.user));
           localStorage.setItem("token", JSON.stringify(res.data.token));
+          dispatch({ type: AUTH_SUCCESS, payload: res.data.user })
           // navigate("/");
           toast({
             position: "top",
