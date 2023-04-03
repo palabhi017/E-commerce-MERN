@@ -30,12 +30,14 @@ import SizeBar from './SizeBar';
 import {ViewIcon } from "@chakra-ui/icons";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { CARTITEMS } from '../Redux/Products/product.type';
 
 export default function Singleproductpage() {
   const [data,setData] = useState({})
   const {id} = useParams();
 const {_id} = useSelector((state)=> state.Auth.currentUser)
+const dispatch = useDispatch()
 
   const getProduct = async () => {
  
@@ -62,11 +64,22 @@ const addtocart = async () => {
   try {
      await axios.post(`http://localhost:8080/cart/add`,item)
       
-      console.log("yes")
+      getcartdata(_id)
   } catch (error) {
       return error;
   }
 }
+
+const getcartdata = async(id)=>{
+  try {
+    let res = await axios.get(`http://localhost:8080/cart/${id}`)
+  
+  
+   dispatch({type:CARTITEMS,payload:res.data.length})
+  } catch (error) {
+    console.log(error)
+  }
+  }
   
     const options = ["S", "M", "L", "XL"];
     const { getRootProps, getRadioProps } = useRadioGroup({
